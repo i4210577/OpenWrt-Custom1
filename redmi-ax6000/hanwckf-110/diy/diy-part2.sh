@@ -55,10 +55,10 @@ sed -i 's/192.168.1.1/192.168.11.1/g' package/base-files/files/bin/config_genera
 # git clone https://github.com/caiweill/luci-app-netwizard package/luci-app-netwizard
 
 # 进阶设置
-git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
+#git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 
 # 定时设置
-git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+#git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 
 # 更改菜单名字
