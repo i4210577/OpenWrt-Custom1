@@ -20,8 +20,8 @@ sed -i '$a src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;mai
 
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/luci-app-mosdns
 git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
-# git clone https://github.com/SuperArilo/luci-app-adguardhome.git package/luci-app-adguardhome
+#git clone https://github.com/SuperArilo/luci-app-adguardhome.git package/luci-app-adguardhome
 git clone https://github.com/Firsgith/luci-app-wolplus.git package/luci-app-wolplus
 git clone https://github.com/sirpdboy/luci-app-lucky.git package/lucky
-git clone https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
-git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
+#git clone https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
+#git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
