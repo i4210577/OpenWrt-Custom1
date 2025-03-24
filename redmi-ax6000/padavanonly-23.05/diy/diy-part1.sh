@@ -26,6 +26,8 @@ git clone https://github.com/sirpdboy/luci-app-lucky package/lucky
 git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 #git clone https://github.com/sirpdboy/luci-app-advanced package/luci-app-advanced
 git clone https://github.com/lmq8267/luci-app-vnt.git package/vnt
+#git clone https://github.com/caiweill/luci-app-netwizard package/luci-app-netwizard
+#git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 # 安装tailscale组网
 sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
 git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
