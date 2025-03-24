@@ -19,9 +19,45 @@
 sed -i '$a src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main' feeds.conf.default
 
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/luci-app-mosdns
-git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
+#git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
 #git clone https://github.com/SuperArilo/luci-app-adguardhome.git package/luci-app-adguardhome
 git clone https://github.com/Firsgith/luci-app-wolplus.git package/luci-app-wolplus
-git clone https://github.com/sirpdboy/luci-app-lucky.git package/lucky
-#git clone https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
-#git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
+git clone https://github.com/sirpdboy/luci-app-lucky package/lucky
+git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
+#git clone https://github.com/sirpdboy/luci-app-advanced package/luci-app-advanced
+git clone https://github.com/lmq8267/luci-app-vnt.git package/vnt
+# 安装tailscale组网
+sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
+git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
+
+# 安装 OpenClash
+git clone --depth 1 https://github.com/vernesong/openclash.git OpenClash
+rm -rf feeds/luci/applications/luci-app-openclash
+mv OpenClash/luci-app-openclash feeds/luci/applications/luci-app-openclash
+
+# OpenClash Mihomo内核
+CORE_DIR="feeds/luci/applications/luci-app-openclash/root/etc/openclash/core"
+CORE_FILE="$CORE_DIR/clash_meta"
+TEMP_FILE="/tmp/clash-meta.gz"
+UNZIPPED_FILE="/tmp/clash-meta"
+
+mkdir -p "$CORE_DIR"
+curl -sL -m 30 --retry 2 \
+    "https://github.com/MetaCubeX/mihomo/releases/download/v1.18.8/mihomo-linux-arm64-v1.18.8.gz" \
+    -o "$TEMP_FILE"
+gunzip -f "$TEMP_FILE"
+chmod +x "$UNZIPPED_FILE"
+mv "$UNZIPPED_FILE" "$CORE_FILE"
+chmod +x "$CORE_FILE"
+echo "Mihomo 内核已成功下载并配置到 $CORE_FILE"
+
+#修复Coremark编译失败
+sed -i 's/mkdir/mkdir -p/g' feeds/packages/utils/coremark/Makefile
+
+# OpenClash GeoIP 数据库
+curl -sL -m 30 --retry 2 https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat -o /tmp/GeoIP.dat
+mv /tmp/GeoIP.dat feeds/luci/applications/luci-app-openclash/root/etc/openclash/GeoIP.dat >/dev/null 2>&1
+
+# OpenClash GeoSite 数据库
+curl -sL -m 30 --retry 2 https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat -o /tmp/GeoSite.dat
+mv -f /tmp/GeoSite.dat feeds/luci/applications/luci-app-openclash/root/etc/openclash/GeoSite.dat >/dev/null 2>&1
