@@ -18,8 +18,19 @@
 #sed -i 's/reg = <0x600000 0x6e00000>/reg = <0x600000 0x1ea00000>/' target/linux/mediatek/files-5.4/arch/arm64/boot/dts/mediatek/mt7986a-xiaomi-redmi-router-ax6000.dts
 sed -i '$a src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main' feeds.conf.default
 
+# 修改名称
+sed -i "s/hostname='.*'/hostname='AX6000'/g" package/base-files/files/bin/config_generate
+
+# 修改WIFI名称
+sed -i "s/ImmortalWrt-2.4G/AX6/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+sed -i "s/ImmortalWrt-5G/AX6-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+
+# 设置默认密码
+sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
+sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
+
 # mosdns
-#git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/luci-app-mosdns
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/luci-app-mosdns
 # OpenClash
 #git clone https://github.com/vernesong/OpenClash package/luci-app-openclash
 # adguardhome
@@ -29,7 +40,7 @@ git clone https://github.com/Firsgith/luci-app-wolplus.git package/luci-app-wolp
 # lucky
 git clone https://github.com/sirpdboy/luci-app-lucky package/lucky
 # 进阶设置
-#git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
+git clone https://github.com/sirpdboy/luci-app-advancedplus package/luci-app-advancedplus
 #git clone https://github.com/sirpdboy/luci-app-advanced package/luci-app-advanced
 # vnt组网
 git clone https://github.com/lmq8267/luci-app-vnt.git package/vnt
@@ -42,3 +53,7 @@ git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
 git clone https://github.com/SAENE/luci-theme-design package/luci-theme-design
 # DNS助手
 git clone https://github.com/kongfl888/openwrt-my-dnshelper package/openwrt-my-dnshelper
+# ddns-go
+git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
+# 关机功能
+git clone https://github.com/sirpdboy/luci-app-poweroffdevice package/luci-app-poweroffde
