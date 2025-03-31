@@ -12,6 +12,17 @@
 sed -i 's/192.168.6.1/192.168.11.1/g' package/base-files/files/bin/config_generate
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
+# 修改名称
+sed -i "s/hostname='.*'/hostname='AX6000'/g" package/base-files/files/bin/config_generate
+
+# 修改WIFI名称
+sed -i "s/ImmortalWrt-2.4G/AX6/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+sed -i "s/ImmortalWrt-5G/AX6-5G/g" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+
+# 设置默认密码
+sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
+sed -i 's/root:::0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
+
 # sed -i 's/luci-app-wrtbwmon//g' target/linux/mediatek/Makefile
 # 安装 mosdns
 rm -rf feeds/packages/lang/golang
